@@ -11,74 +11,57 @@ class AppDynamicColors implements AppColors {
 
   static AppDynamicColors? _instances;
 
+  static bool? isDark;
+
   factory AppDynamicColors() {
+    isDark ??= PrefHelper.get(PrefKeys.currentTheme) ?? false;
     _instances ??= AppDynamicColors._internal();
     return _instances!;
   }
 
   @override
-  Color get primaryColor => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().primaryColor
-      : AppLightColors().primaryColor;
+  Color get primaryColor =>
+      isDark ?? false ? AppDarkColors().primaryColor : AppLightColors().primaryColor;
 
   @override
-  Color get secondaryColor => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().secondaryColor
-      : AppLightColors().secondaryColor;
+  Color get secondaryColor =>
+      isDark ?? false ? AppDarkColors().secondaryColor : AppLightColors().secondaryColor;
 
   @override
-  Color get mainColor => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().mainColor
-      : AppLightColors().mainColor;
+  Color get mainColor => isDark ?? false ? AppDarkColors().mainColor : AppLightColors().mainColor;
 
   @override
-  Color get scaffoldBackground => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().primaryColor
-      : AppLightColors().primaryColor;
+  Color get scaffoldBackground =>
+      isDark ?? false ? AppDarkColors().primaryColor : AppLightColors().primaryColor;
 
   @override
-  Color get appbarBackground => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().secondaryColor
-      : AppLightColors().secondaryColor;
+  Color get appbarBackground =>
+      isDark ?? false ? AppDarkColors().secondaryColor : AppLightColors().secondaryColor;
 
   @override
   Color get containerBackground =>
-      PrefHelper.get(PrefKeys.currentTheme) ?? false
-          ? AppDarkColors().secondaryColor
-          : AppLightColors().secondaryColor;
+      isDark ?? false ? AppDarkColors().secondaryColor : AppLightColors().secondaryColor;
 
   @override
-  Color get listTileBackground => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().secondaryColor
-      : AppLightColors().secondaryColor;
+  Color get listTileBackground =>
+      isDark ?? false ? AppDarkColors().secondaryColor : AppLightColors().secondaryColor;
 
   @override
-  Color get text => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().text
-      : AppLightColors().text;
+  Color get text => isDark ?? false ? AppDarkColors().text : AppLightColors().text;
 
   @override
-  Color get icon => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().icon
-      : AppLightColors().icon;
+  Color get icon => isDark ?? false ? AppDarkColors().icon : AppLightColors().icon;
 
   @override
-  Color get button => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().mainColor
-      : AppLightColors().mainColor;
+  Color get button => isDark ?? false ? AppDarkColors().mainColor : AppLightColors().mainColor;
 
   @override
-  Color get subtitle =>  PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().subtitle
-      : AppLightColors().subtitle;
+  Color get subtitle => isDark ?? false ? AppDarkColors().subtitle : AppLightColors().subtitle;
 
   @override
-  Color get obdConnectContainer =>  PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().obdConnectContainer
-      : AppLightColors().obdConnectContainer;
+  Color get obdConnectContainer =>
+      isDark ?? false ? AppDarkColors().obdConnectContainer : AppLightColors().obdConnectContainer;
 
   @override
-  Color get divider => PrefHelper.get(PrefKeys.currentTheme) ?? false
-      ? AppDarkColors().divider
-      : AppLightColors().divider;
+  Color get divider => isDark ?? false ? AppDarkColors().divider : AppLightColors().divider;
 }

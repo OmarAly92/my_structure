@@ -1,3 +1,4 @@
+import 'package:my_structure/core/app_themes/colors/app_dynamic_colors.dart';
 import 'package:my_structure/core/helpers/shared_preference/shared_preference_helper.dart';
 import 'package:my_structure/core/helpers/shared_preference/shared_preference_keys.dart';
 import 'package:equatable/equatable.dart';
@@ -11,11 +12,12 @@ class ThemeCubit extends Cubit<ThemeState> {
   }
 
   Future<void> _loadTheme() async {
-    final bool isDark = PrefHelper.get(PrefKeys.currentTheme) ?? false;
+    final isDark = PrefHelper.get(PrefKeys.currentTheme) ?? false;
     emit(ThemeChangedState(isDark: isDark));
   }
 
   Future<void> changeTheme(bool isDark) async {
+    AppDynamicColors.isDark = null;
     await PrefHelper.save(PrefKeys.currentTheme, isDark);
     emit(ThemeChangedState(isDark: isDark));
   }
