@@ -76,6 +76,7 @@ Accelerate your workflow using the [Flutter Structure Generator](https://plugins
 - 🏗️ Generates entire features with MVVM or Clean Architecture structure.
 - 🧱 Scaffolds individual screens with logic and UI layers.
 - ⚡ Reduces setup time and enforces consistent architecture patterns.
+<img width="1720" alt="image" src="https://github.com/user-attachments/assets/9ba344be-e6f3-4a19-a639-672f91c49b1f" />
 
 ---
 
