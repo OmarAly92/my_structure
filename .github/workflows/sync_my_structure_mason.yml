@@ -1,33 +1,30 @@
-name: Sync lib/core to core_brick in my_structure_mason
+name: Sync my_structure from mason
 
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   sync_my_structure_mason:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout my_structure_mason branch
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           ref: my_structure_mason
-          fetch-depth: 0
+          token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
 
-      - name: Set up Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Set up Rust
+        uses: actions/setup-rust@v1
+        with:
+          rust-version: stable
 
-      - name: Pull latest changes from master
-        run: |
-          git pull
-
-      - name: Sync lib/core into brick
+      - name: Sync core from lib/core
         run: |
           rm -rf bricks/core_brick/__brick__/core
-          cp -r lib/core bricks/core_brick/__brick__/
+          cp -r bricks/core_brick/__brick__/core ../lib/core
+          cp -r ../lib/core bricks/core_brick/__brick__/core
 
       - name: Commit and push if changes exist
         env:
