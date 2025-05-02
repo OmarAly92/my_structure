@@ -22,6 +22,11 @@ jobs:
           git checkout my_structure_mason
           git pull origin my_structure_mason
 
+      - name: Set up Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Configure git to merge when pulling
         run: |
           git config pull.rebase false
