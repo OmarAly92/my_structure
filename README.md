@@ -24,7 +24,6 @@ A well-organized collection of reusable widgets and components for consistent UI
 - `main_widgets/`: Core widgets like `AppButton`, `AppText`, `AppScaffold`, and `GlobalAppBar`.
 - `failure_widgets/`, `loading_widget/`: Unified loading and error feedback UI.
 - `responsive_widgets/`: Layout utilities like `AdaptiveColumn`, `ResponsiveRow`, and builder patterns.
-- `screens_components/`: Higher-order components like `BottomSheetContainer`, `CustomCalendar`, and `DotIndicator`.
 - `package_widgets/`: Wrappers for enhanced third-party widgets (`AppShimmer`, `AppSlider`, `AppAnimate`, etc.).
 
 ---
