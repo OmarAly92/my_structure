@@ -24,7 +24,6 @@ A well-organized collection of reusable widgets and components for consistent UI
 - `main_widgets/`: Core widgets like `AppButton`, `AppText`, `AppScaffold`, and `GlobalAppBar`.
 - `failure_widgets/`, `loading_widget/`: Unified loading and error feedback UI.
 - `responsive_widgets/`: Layout utilities like `AdaptiveColumn`, `ResponsiveRow`, and builder patterns.
-- `screens_components/`: Higher-order components like `BottomSheetContainer`, `CustomCalendar`, and `DotIndicator`.
 - `package_widgets/`: Wrappers for enhanced third-party widgets (`AppShimmer`, `AppSlider`, `AppAnimate`, etc.).
 
 ---
@@ -76,6 +75,7 @@ Accelerate your workflow using the [Flutter Structure Generator](https://plugins
 - 🏗️ Generates entire features with MVVM or Clean Architecture structure.
 - 🧱 Scaffolds individual screens with logic and UI layers.
 - ⚡ Reduces setup time and enforces consistent architecture patterns.
+<img width="1720" alt="image" src="https://github.com/user-attachments/assets/9ba344be-e6f3-4a19-a639-672f91c49b1f" />
 
 ---
 
