@@ -1,0 +1,36 @@
+name: Sync lib/core to core_brick in my_structure_mason
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  sync_my_structure_mason:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout my_structure_mason branch
+        uses: actions/checkout@v3
+        with:
+          ref: my_structure_mason
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Pull latest changes from master
+        run: |
+          git pull origin master
+
+      - name: Sync lib/core into brick
+        run: |
+          rm -rf bricks/core_brick/__brick__/core
+          cp -r lib/core bricks/core_brick/__brick__/
+
+      - name: Commit and push if changes exist
+        run: |
+          git add bricks/core_brick/__brick__/core
+          git diff-index --quiet HEAD || git commit -m "🔄 Sync core from lib/core (auto update from master)"
+          git push origin my_structure_mason
