@@ -30,7 +30,9 @@ jobs:
           cp -r lib/core bricks/core_brick/__brick__/
 
       - name: Commit and push if changes exist
+        env:
+          TOKEN: ${{ secrets.ACTIONS_PUSH_TOKEN }}
         run: |
           git add bricks/core_brick/__brick__/core
           git diff-index --quiet HEAD || git commit -m "🔄 Sync core from lib/core (auto update from master)"
-          git push origin my_structure_mason
+          git push https://x-access-token:${TOKEN}@github.com/OmarAly92/my_structure.git HEAD:my_structure_mason
