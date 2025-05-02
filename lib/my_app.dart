@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_structure/core/app_routes/app_router.dart';
+import 'package:my_structure/core/app_routes/routes_strings.dart';
 import 'package:my_structure/core/app_themes/theme_logic/theme_cubit.dart';
 import 'package:my_structure/core/app_themes/themes/app_themes.dart';
 import 'package:my_structure/core/helpers/localization/localization_logic/localization_cubit.dart';
 import 'package:my_structure/core/utils/app_strings.dart';
-import 'package:my_structure/core/utils/extensions.dart';
+import 'package:my_structure/core/widgets/failure_widgets/custom_flutter_error_widget.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,10 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(
-        context.width,
-        context.height,
-      ),
+      designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
@@ -39,6 +37,13 @@ class MyApp extends StatelessWidget {
                 theme: AppThemes.light(),
                 darkTheme: AppThemes.dark(),
                 onGenerateRoute: AppRouter.generateRoute,
+                initialRoute: RoutesStrings.homeScreen,
+                builder: (context, child) {
+                  ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+                    return CustomFlutterErrorWidget(errorDetails: errorDetails);
+                  };
+                  return child!;
+                },
               );
             },
           ),

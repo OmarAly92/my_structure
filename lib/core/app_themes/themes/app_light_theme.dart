@@ -1,65 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:my_structure/core/app_themes/colors/app_colors.dart';
-import 'package:my_structure/core/app_themes/colors/app_dynamic_colors.dart';
 import 'package:my_structure/core/app_themes/text_style/app_text_style.dart';
 
 sealed class AppLightThemes {
   static ThemeData call() {
     return ThemeData(
       useMaterial3: true,
-      scaffoldBackgroundColor: AppDynamicColors().scaffoldBackground,
+      scaffoldBackgroundColor: AppColors.scaffoldBackground,
       fontFamily: 'SairaSemiCondensed',
       fontFamilyFallback: [
         'Cairo',
       ],
-      appBarTheme: AppBarTheme(
-        color: AppDynamicColors().appbarBackground,
+      appBarTheme: const AppBarTheme(
+        color: AppColors.appbarBackground,
         actionsIconTheme: IconThemeData(color: Colors.white),
       ),
-      colorScheme: ColorScheme.light(
+      colorScheme: const ColorScheme.light(
         brightness: Brightness.light,
         primary: AppColors.blue,
       ),
       switchTheme: SwitchThemeData(
         thumbIcon: WidgetStateProperty.resolveWith(
           (states) => states.contains(WidgetState.selected)
-              ? Icon(
+              ? const Icon(
                   Icons.check,
-                  color: AppDynamicColors().mainColor,
+                  color: AppColors.mainColor,
                   size: 20,
                 )
-              : Icon(
+              : const Icon(
                   Icons.close,
                   size: 20,
                 ),
         ),
         trackColor: WidgetStateProperty.resolveWith(
           (states) => states.contains(WidgetState.selected)
-              ? AppDynamicColors().mainColor
+              ? AppColors.mainColor
               : AppColors.white,
         ),
         thumbColor: WidgetStateProperty.resolveWith(
           (states) => states.contains(WidgetState.selected)
               ? AppColors.white
-              : AppDynamicColors().mainColor,
+              : AppColors.mainColor,
         ),
         trackOutlineColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected) ? null : AppDynamicColors().mainColor,
+          (states) => states.contains(WidgetState.selected) ? null : AppColors.mainColor,
         ),
       ),
-      badgeTheme: BadgeThemeData(
+      badgeTheme: const BadgeThemeData(
         backgroundColor: AppColors.red,
       ),
       sliderTheme: SliderThemeData(
         trackHeight: 7,
-        activeTrackColor: AppDynamicColors().mainColor,
-        inactiveTrackColor: AppDynamicColors().secondaryColor,
-        thumbColor: AppDynamicColors().mainColor,
-        overlayColor: AppDynamicColors().mainColor.withOpacity(0.3),
-        valueIndicatorColor: AppDynamicColors().mainColor,
+        activeTrackColor: AppColors.mainColor,
+        inactiveTrackColor: AppColors.secondary,
+        thumbColor: AppColors.mainColor,
+        overlayColor: AppColors.mainColor.withOpacity(0.3),
+        valueIndicatorColor: AppColors.mainColor,
         showValueIndicator: ShowValueIndicator.onlyForContinuous,
-        valueIndicatorStrokeColor: AppDynamicColors().mainColor,
-        valueIndicatorTextStyle: AppTextStyle.styleMedium14.copyWith(
+        valueIndicatorStrokeColor: AppColors.mainColor,
+        valueIndicatorTextStyle: AppTextStyle.style14Medium.copyWith(
           color: AppColors.white,
         ),
       ),

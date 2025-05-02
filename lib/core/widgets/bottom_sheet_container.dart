@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_structure/core/app_themes/colors/app_colors.dart';
 
 class BottomSheetContainer extends StatelessWidget {
   const BottomSheetContainer({
@@ -30,23 +31,24 @@ class BottomSheetContainer extends StatelessWidget {
     if (centered) {
       return Center(
         child: Container(
-          width: width ?? 50,
-          height: height ?? 7,
-          decoration: BoxDecoration(
-            color: color ?? Colors.grey.shade300,
-            borderRadius: borderRadius ?? BorderRadius.circular(40),
-          ),
+          width: width ?? 45,
+          height: height ?? 6,
+          decoration: buildBoxDecoration(),
         ),
       );
     } else {
       return Container(
-        width: width ?? 50,
-        height: height ?? 7,
-        decoration: BoxDecoration(
-          color: color ?? Colors.grey.shade300,
-          borderRadius: borderRadius ?? BorderRadius.circular(40),
-        ),
+        width: width ?? 45,
+        height: height ?? 6,
+        decoration: buildBoxDecoration(),
       );
     }
+  }
+
+  BoxDecoration buildBoxDecoration() {
+    return BoxDecoration(
+          color: color ?? AppColors.zn300,
+          borderRadius: borderRadius ?? BorderRadius.circular(40),
+        );
   }
 }

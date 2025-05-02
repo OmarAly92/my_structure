@@ -1,80 +1,84 @@
-import 'package:my_structure/core/app_themes/colors/app_colors.dart';
-import 'package:my_structure/core/app_themes/colors/app_dynamic_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
+import 'package:my_structure/core/error_handling/failures/failure.dart';
+import 'package:my_structure/core/utils/app_assets.dart';
+import 'package:my_structure/core/utils/app_constants.dart';
+import 'package:my_structure/core/widgets/main_widgets/app_assets_image.dart';
+import 'package:my_structure/core/widgets/main_widgets/app_text.dart';
+import 'package:my_structure/core/widgets/main_widgets/primary_button.dart';
 
 class AppErrorWidget extends StatelessWidget {
-  const AppErrorWidget({super.key, this.failureMsg, this.onPressed});
+  const AppErrorWidget({
+    super.key,
+    this.failure,
+    this.onPressed,
+    this.isEmpty = false,
+    this.image,
+    this.errorButtonMessage,
+  });
 
-  final String? failureMsg;
+  final Failure? failure;
   final void Function()? onPressed;
+  final bool isEmpty;
+  final Widget? image;
+  final String? errorButtonMessage;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const SizedBox.shrink(),
+        const SizedBox(),
         Column(
           children: [
-            const Icon(
-              Icons.error_outline,
-              color: AppColors.blue,
-              size: 250,
-            ),
+            (image != null)
+                ? image!
+                : (isEmpty)
+                ? const AppAssetsImage(AppAsset.errorImage, fit: BoxFit.contain)
+                : AppAssetsImage(
+                  failure?.statusCode == 404
+                      ? AppAsset.errorImage
+                      : AppAsset.errorImage,
+                  fit: BoxFit.contain,
+                ),
             const Gap(10),
-            Text(
-              failureMsg ?? '',
+            AppText(
+              failure?.message ?? '',
               textAlign: TextAlign.center,
               maxLines: 3,
-              style: const TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
             ),
             const Gap(30),
-            Builder(builder: (context) {
-              if (onPressed != null) {
-                return Column(
-                  children: [
-                    const Text(
-                      'Try Again',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Gap(20),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.blue,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 55,
-                        ),
-                      ),
-                      onPressed: onPressed,
-                      child:  Text(
-                        'Reload Screen',
-                        style: TextStyle(
-                          color: AppDynamicColors().secondaryColor,
-                          // color: AppColors.appBlueColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            }),
           ],
         ),
-        const SizedBox(height: 100),
+        if (onPressed == null)
+          Visibility(
+            visible: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.horizontalPadding,
+              ),
+              child: PrimaryButton.expand(
+                text: errorButtonMessage ?? 'Reload Screen',
+                onPressed: () {},
+              ),
+            ),
+          ),
+        if (onPressed != null)
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.horizontalPadding,
+                ),
+                child: PrimaryButton.expand(
+                  text: errorButtonMessage ?? 'Reload Screen',
+                  onPressed: onPressed,
+                ),
+              ),
+              const Gap(AppConstants.bottomNavBarHeight + 24),
+            ],
+          ),
       ],
     );
   }

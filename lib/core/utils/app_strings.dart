@@ -10,4 +10,6 @@ sealed class AppStrings {
   static const String success = 'success';
   static const String enLanguage = 'en';
   static const String arLanguage = 'ar';
+  static const String enFont = 'Roboto';
+  static const String arFont = 'Cairo';
 }

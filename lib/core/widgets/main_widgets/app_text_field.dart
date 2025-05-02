@@ -1,8 +1,12 @@
 import 'package:my_structure/core/app_themes/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_structure/core/app_themes/text_style/app_text_style.dart';
+import 'package:my_structure/core/utils/app_constants.dart';
+import 'package:my_structure/core/widgets/main_widgets/app_text.dart';
+import 'package:my_structure/core/widgets/main_widgets/space_widgets.dart';
 
-class AppTextField extends StatefulWidget {
+class AppTextField extends StatelessWidget {
   const AppTextField({
     super.key,
     this.controller,
@@ -11,89 +15,122 @@ class AppTextField extends StatefulWidget {
     this.onFieldSubmitted,
     this.inputFormatters,
     this.validator,
+    this.focusNode,
+    this.label,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.obscureText = false,
+    this.required = false,
+    this.needBorder = true,
+    this.onChanged,
+    this.maxLines,
+    this.keyboardType,
   });
 
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final String? label;
   final String? hint;
   final TextStyle? hintStyle;
-  final void Function(String)? onFieldSubmitted;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final bool obscureText;
+  final bool required;
+  final bool needBorder;
+  final ValueChanged<String>? onFieldSubmitted;
   final FormFieldValidator<String>? validator;
-
-  @override
-  State<AppTextField> createState() => _AppTextFieldState();
-}
-
-class _AppTextFieldState extends State<AppTextField> {
-  late final FocusNode focusNode;
-  bool isActive = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    focusNode = FocusNode();
-    focusNode.addListener(onFocusChange);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    focusNode.removeListener(onFocusChange);
-    focusNode.dispose();
-  }
-
-  void onFocusChange() {
-    if (focusNode.hasFocus) {
-      setState(() {
-        isActive = true;
-      });
-    } else {
-      setState(() {
-        isActive = false;
-      });
-    }
-  }
+  final ValueChanged<String>? onChanged;
+  final int? maxLines;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
+    if (label != null) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppText(
+            label!,
+            style: AppTextStyle.style14Regular.copyWith(
+              color: AppColors.labelTextColor,
+            ),
+          ),
+          const VerticalSpace(8),
+          buildTextFormField(context),
+        ],
+      );
+    }
+    return buildTextFormField(context);
+  }
+
+  TextFormField buildTextFormField(BuildContext context) {
     return TextFormField(
-      inputFormatters: widget.inputFormatters,
+      inputFormatters: inputFormatters,
+      obscureText: obscureText,
+      obscuringCharacter: '*',
       focusNode: focusNode,
-      controller: widget.controller,
-      style: TextStyle(
-        color: isActive ? AppColors.blue : Colors.white,
-        decorationColor: Colors.transparent,
-      ),
-      validator: widget.validator,
-      onFieldSubmitted: widget.onFieldSubmitted,
+      keyboardType: keyboardType,
+      controller: controller,
+      style: AppTextStyle.style12Medium,
+      onChanged: onChanged,
+      validator: validator,
+      cursorColor: AppColors.mainColor,
+      onFieldSubmitted: onFieldSubmitted,
+      maxLines: maxLines ?? 1,
+      onTapOutside: (event) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          FocusScope.of(context).unfocus();
+        });
+      },
       decoration: InputDecoration(
+        hintText: required ? '$hint*' : hint,
+        hintStyle:
+        hintStyle ??
+            AppTextStyle.style12Medium.copyWith(color: AppColors.hintColor),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 0,
+          horizontal: 24,
+          vertical: 16,
         ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+        isDense: true,
+        filled: true,
+        fillColor: AppColors.fillColor,
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
+        border: OutlineInputBorder(
+          borderSide:
+          needBorder
+              ? BorderSide.none
+              : const BorderSide(color: AppColors.textFieldBorder),
+
+          borderRadius: AppConstants.textFormBorderRadius,
         ),
-        hintText: widget.hint,
-        hintStyle: widget.hintStyle ?? const TextStyle(color: Colors.white54),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+
+        enabledBorder: OutlineInputBorder(
+          borderSide:
+          needBorder
+              ? const BorderSide(color: AppColors.textFieldBorder)
+              : BorderSide.none,
+          borderRadius: AppConstants.textFormBorderRadius,
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.blue),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+        focusedBorder: OutlineInputBorder(
+          borderSide:
+          needBorder
+              ? const BorderSide(color: AppColors.textFieldBorder)
+              : BorderSide.none,
+
+          borderRadius: AppConstants.textFormBorderRadius,
         ),
-        disabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+        disabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: AppColors.textFieldBorder),
+          borderRadius: AppConstants.textFormBorderRadius,
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.red),
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          borderSide: const BorderSide(color: AppColors.error),
+          borderRadius: AppConstants.textFormBorderRadius,
         ),
-        errorStyle: TextStyle(color: AppColors.red),
+        errorStyle: const TextStyle(color: AppColors.error),
       ),
     );
   }

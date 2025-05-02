@@ -57,7 +57,7 @@ class AppButton extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: padding,
-                fixedSize: fixedSize ?? Size.fromHeight(50),
+                fixedSize: fixedSize ?? const Size.fromHeight(50),
                 foregroundColor: foregroundColor ?? Colors.white,
                 backgroundColor: backgroundColor ?? AppColors.blue,
                 disabledBackgroundColor: backgroundColor ?? AppColors.blue,
@@ -68,7 +68,7 @@ class AppButton extends StatelessWidget {
               ),
               onPressed: isLoading ? () {} : onPressed,
               child: isLoading
-                  ? Center(
+                  ? const Center(
                       child: SpinKitThreeBounce(
                         color: AppColors.white,
                         size: 35,
@@ -77,7 +77,7 @@ class AppButton extends StatelessWidget {
                   : AppText(
                       text,
                       style: textStyle ??
-                          AppTextStyle.styleSemiBold18.copyWith(
+                          AppTextStyle.style18SemiBold.copyWith(
                             color: textColor ?? Colors.white,
                           ),
                     ),
@@ -89,7 +89,7 @@ class AppButton extends StatelessWidget {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: padding,
-          fixedSize: fixedSize ?? Size.fromHeight(50),
+          fixedSize: fixedSize ?? const Size.fromHeight(50),
           foregroundColor: foregroundColor ?? Colors.white,
           backgroundColor: backgroundColor ?? AppColors.blue,
           disabledBackgroundColor: backgroundColor ?? AppColors.blue,
@@ -100,14 +100,14 @@ class AppButton extends StatelessWidget {
         ),
         onPressed: isLoading ? () {} : onPressed,
         child: isLoading
-            ? SpinKitThreeBounce(
+            ? const SpinKitThreeBounce(
                 color: AppColors.white,
                 size: 35,
               )
             : AppText(
                 text,
                 style: textStyle ??
-                    AppTextStyle.styleSemiBold18.copyWith(
+                    AppTextStyle.style18SemiBold.copyWith(
                       color: textColor ?? Colors.white,
                     ),
               ),

@@ -1,67 +1,113 @@
 import 'package:flutter/material.dart';
 import 'package:my_structure/core/app_themes/colors/app_colors.dart';
-import 'package:my_structure/core/app_themes/colors/app_dynamic_colors.dart';
 import 'package:my_structure/core/app_themes/text_style/app_text_style.dart';
+import 'package:my_structure/core/utils/app_constants.dart';
+import 'package:my_structure/core/utils/app_strings.dart';
 
 sealed class AppDarkThemes {
   static ThemeData call() {
     return ThemeData(
       useMaterial3: true,
-      scaffoldBackgroundColor: AppDynamicColors().scaffoldBackground,
-      fontFamily: 'SairaSemiCondensed',
-      fontFamilyFallback: [
-        'Cairo',
-      ],
-      appBarTheme: AppBarTheme(
-        color: AppDynamicColors().appbarBackground,
-        actionsIconTheme: IconThemeData(color: Colors.white),
+      scaffoldBackgroundColor: AppColors.scaffoldBackground,
+      fontFamily: AppStrings.enFont,
+      fontFamilyFallback: [AppStrings.arFont],
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder()},
       ),
-      colorScheme: ColorScheme.dark(
+      appBarTheme: AppBarTheme(
+        color: AppColors.appbarBackground,
+        titleTextStyle: AppTextStyle.style24SemiBold,
+        centerTitle: true,
+        scrolledUnderElevation: 0,
+        elevation: 0,
+        titleSpacing: 16,
+        shape: const Border(
+          bottom: BorderSide(color: AppColors.appbarDivider, width: 1.5),
+        ),
+        actionsIconTheme: const IconThemeData(color: Colors.white),
+        surfaceTintColor: Colors.transparent,
+        // shadowColor: Colors.grey,
+      ),
+      tabBarTheme: TabBarTheme(
+        labelColor: AppColors.zn200,
+        labelStyle: AppTextStyle.style16Medium,
+        unselectedLabelColor: AppColors.zn300,
+        unselectedLabelStyle: AppTextStyle.style16Medium,
+        dividerColor: AppColors.zn700,
+        indicatorColor: AppColors.zn200,
+        overlayColor: const WidgetStatePropertyAll<Color>(AppColors.zn700),
+        splashFactory: InkRipple.splashFactory,
+      ),
+      colorScheme: const ColorScheme.dark(
         brightness: Brightness.dark,
-        primary: AppColors.blue,
+        primary: AppColors.primary,
+        onPrimary: AppColors.white,
+        onSurface: AppColors.white,
       ),
       switchTheme: SwitchThemeData(
         thumbIcon: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected)
-              ? Icon(
-                  Icons.check,
-                  color: AppDynamicColors().mainColor,
-                  size: 20,
-                )
-              : Icon(
-                  Icons.close,
-                  size: 20,
-                ),
+          (states) =>
+              states.contains(WidgetState.selected)
+                  ? const Icon(Icons.check, color: AppColors.primary, size: 20)
+                  : const Icon(Icons.close, size: 20),
         ),
         trackColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected)
-              ? AppDynamicColors().mainColor
-              : AppDynamicColors().secondaryColor,
+          (states) =>
+              states.contains(WidgetState.selected)
+                  ? AppColors.primary
+                  : AppColors.white,
         ),
         thumbColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected)
-              ? AppDynamicColors().secondaryColor
-              : AppDynamicColors().mainColor,
+          (states) =>
+              states.contains(WidgetState.selected)
+                  ? AppColors.white
+                  : AppColors.primary,
         ),
         trackOutlineColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected) ? null : AppDynamicColors().mainColor,
+          (states) =>
+              states.contains(WidgetState.selected) ? null : AppColors.primary,
         ),
       ),
-      badgeTheme: BadgeThemeData(
-        backgroundColor: AppColors.red,
-      ),
-      sliderTheme: SliderThemeData(
-        trackHeight: 7,
-        activeTrackColor: AppDynamicColors().mainColor,
-        inactiveTrackColor: AppDynamicColors().primaryColor,
-        thumbColor: AppDynamicColors().mainColor,
-        overlayColor: AppDynamicColors().mainColor.withOpacity(0.3),
-        valueIndicatorColor: AppDynamicColors().mainColor,
-        showValueIndicator: ShowValueIndicator.onlyForContinuous,
-        valueIndicatorStrokeColor: AppDynamicColors().mainColor,
-        valueIndicatorTextStyle: AppTextStyle.styleMedium14.copyWith(
-          color: AppColors.white,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstants.borderRadius),
+            side: const BorderSide(color: AppColors.primary, width: 1),
+          ),
         ),
+      ),
+      badgeTheme: const BadgeThemeData(backgroundColor: AppColors.red),
+      checkboxTheme: CheckboxThemeData(
+        checkColor: WidgetStateProperty.all(
+          AppColors.primary,
+        ), // Checkmark color
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.white;
+          }
+          return AppColors.white;
+        }),
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: 74,
+        labelTextStyle: WidgetStatePropertyAll<TextStyle>(
+          AppTextStyle.style14Light,
+        ),
+        overlayColor: const WidgetStatePropertyAll<Color>(AppColors.zn700),
+        backgroundColor: AppColors.secondary,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AppColors.secondary,
+        selectedItemColor: AppColors.white,
+        unselectedItemColor: AppColors.zn300,
+        selectedLabelStyle: AppTextStyle.style14Light,
+        unselectedLabelStyle: AppTextStyle.style14Light,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
       ),
     );
   }

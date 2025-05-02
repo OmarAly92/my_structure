@@ -15,7 +15,7 @@ dependencies:
   # A powerful HTTP networking package, for API request
   dio: ^5.7.0
   # state management Bloc design pattern. Built to be used with the bloc state management package
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.1.0
   # A Dart package that helps to implement value based equality without needing to explicitly override == and hashCode.
   equatable: ^2.0.5
   # Easily create toast messages in single line of code
@@ -44,6 +44,18 @@ dependencies:
   easy_localization: ^3.0.7
   # For Responsive UI
   flutter_screenutil: ^5.9.3
+  talker_dio_logger: ^4.7.3
+  encrypt: ^5.0.3
+  url_launcher: ^6.3.1
+  safe_device: ^1.2.0
+  image_picker: ^1.1.2
+  cached_network_image: ^3.4.1
+  skeletonizer: ^1.4.3
+  flutter_svg: ^2.0.17
+  talker_flutter: ^4.7.3
+  talker_bloc_logger: ^4.7.3
+
+
 
 dev_dependencies:
   flutter_test:

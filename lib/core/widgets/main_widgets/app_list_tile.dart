@@ -10,11 +10,13 @@ class AppListTile<T> extends StatelessWidget {
     this.trailing,
     this.onTap,
     this.contentPadding,
-  })  : isSwitch = false,
-        isRadio = false,
-        groupValue = null,
-        radioValue = null,
-        switchValue = false;
+  }) : isSwitch = false,
+       isRadio = false,
+       isCheckBox = false,
+       groupValue = null,
+       radioValue = null,
+       checkboxValue = null,
+       switchValue = false;
 
   const AppListTile.withSwitch({
     super.key,
@@ -25,10 +27,12 @@ class AppListTile<T> extends StatelessWidget {
     required this.switchValue,
     this.onTap,
     this.contentPadding,
-  })  : isSwitch = true,
-        isRadio = false,
-        radioValue = null,
-        groupValue = null;
+  }) : isSwitch = true,
+       isRadio = false,
+       isCheckBox = false,
+       radioValue = null,
+       checkboxValue = null,
+       groupValue = null;
 
   const AppListTile.radio({
     super.key,
@@ -40,9 +44,27 @@ class AppListTile<T> extends StatelessWidget {
     this.onTap,
     this.radioValue,
     this.contentPadding,
-  })  : isRadio = true,
-        isSwitch = false,
-        switchValue = false;
+  }) : isRadio = true,
+       isSwitch = false,
+       isCheckBox = false,
+       checkboxValue = null,
+       switchValue = false;
+
+  const AppListTile.checkBox({
+    super.key,
+    this.leading,
+    this.title,
+    this.subtitle,
+    this.trailing,
+    required this.checkboxValue,
+    this.onTap,
+    this.contentPadding,
+  }) : isRadio = false,
+       isSwitch = false,
+       isCheckBox = true,
+       radioValue = null,
+       groupValue = null,
+       switchValue = false;
 
   final Widget? leading;
   final Widget? title;
@@ -55,6 +77,10 @@ class AppListTile<T> extends StatelessWidget {
   final Object? radioValue;
   final T? groupValue;
 
+  /// For CheckBox Widget
+  final bool isCheckBox;
+  final bool? checkboxValue;
+
   /// For Switch Widget
   final bool isSwitch;
   final bool switchValue;
@@ -63,15 +89,14 @@ class AppListTile<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      minVerticalPadding:0 ,
+      minVerticalPadding: 0,
       leading: leading,
       title: title,
       subtitle: subtitle,
       trailing: buildTrailing(),
       contentPadding: contentPadding,
       shape: RoundedRectangleBorder(
-        borderRadius:
-        AppConstants.borderRadiusCircular
+        borderRadius: AppConstants.borderRadiusCircular,
         // BorderRadius.circular(15),
       ),
       onTap: onTap,
@@ -80,14 +105,16 @@ class AppListTile<T> extends StatelessWidget {
 
   Widget? buildTrailing() {
     if (isSwitch) {
-      return Switch(
-        value: switchValue,
-        onChanged: (value) => onTap?.call(),
-      );
+      return Switch(value: switchValue, onChanged: (value) => onTap?.call());
     } else if (isRadio) {
       return Radio.adaptive(
         value: radioValue,
         groupValue: groupValue,
+        onChanged: (value) => onTap?.call(),
+      );
+    } else if (isCheckBox) {
+      return Checkbox(
+        value: checkboxValue,
         onChanged: (value) => onTap?.call(),
       );
     } else {

@@ -14,14 +14,9 @@ class PageViewDotsIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: List.generate(
-        pageCount,
-        (index) {
-          return DotItem(
-            isActive: index == currentPageIndex.round(),
-          );
-        },
-      ),
+      children: List.generate(pageCount, (index) {
+        return DotItem(isActive: index == currentPageIndex.round());
+      }),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:my_structure/core/app_themes/colors/app_colors.dart';
-import 'package:my_structure/core/app_themes/colors/app_dynamic_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppRefreshIndicator extends StatelessWidget {
@@ -15,7 +14,7 @@ class AppRefreshIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      backgroundColor: AppDynamicColors().secondaryColor,
+      backgroundColor: AppColors.secondary,
       color: AppColors.blue,
       onRefresh: onRefresh,
       child: child,

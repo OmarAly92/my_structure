@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 sealed class AppLocalization {
   static const List<Locale> locales = [
-    Locale('en'),
     Locale('ar'),
+    Locale('en'),
   ];
   static const enLocal = Locale('en');
   static const arLocal = Locale('ar');

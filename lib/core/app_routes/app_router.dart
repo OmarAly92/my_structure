@@ -9,20 +9,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
+    final argument = settings.arguments;
     switch (settings.name) {
       case RoutesStrings.homeScreen:
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider(
               create: (context) => sl<HomeCubit>(),
-              child: HomeScreen(),
+              child: const HomeScreen(),
             );
           },
         );
       case RoutesStrings.controlsScreen:
         return MaterialPageRoute(
           builder: (context) {
-            return ControlsScreen();
+            return const ControlsScreen();
           },
         );
     }
