@@ -22,7 +22,7 @@ jobs:
 
       - name: Pull latest changes from master
         run: |
-          git pull origin master
+          git pull
 
       - name: Sync lib/core into brick
         run: |
