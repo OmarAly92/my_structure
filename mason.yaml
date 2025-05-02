@@ -1,9 +1,7 @@
 bricks:
   feature:
-    path: "bricks/feature_brick"
-
+    path: bricks/feature_brick
   screen:
-    path: "bricks/screen_brick"
-
+    path: bricks/screen_brick
   core:
-    path: "bricks/core_brick"
+    path: bricks/core_brick

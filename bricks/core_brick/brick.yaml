@@ -25,12 +25,12 @@ environment:
 #  * an optional prompt phrase used when asking for the variable
 #  * a list of values (enums only)
 #  * an optional separator (list only)
-vars:
-  name:
-    type: string
-    description: Your name
-    default: Dash
-    prompt: What is your name?
+#vars:
+#  name:
+#    type: string
+#    description: Your name
+#    default: Dash
+#    prompt: What is your name?
 
 #  git -C bricks/core_brick/__brick__ remote get-url upstream >/dev/null 2>&1 || \
 #  git -C bricks/core_brick/__brick__ remote add upstream https://github.com/OmarAly92/my_structure.git
