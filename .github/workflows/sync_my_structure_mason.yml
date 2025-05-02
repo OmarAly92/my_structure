@@ -10,23 +10,27 @@ jobs:
   sync_my_structure_mason:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout my_structure_mason branch
+      - name: Checkout repo
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
           fetch-depth: 0
 
-      - name: Switch to my_structure_mason
+      - name: Switch to my_structure_mason branch
         run: |
           git fetch origin my_structure_mason
           git checkout my_structure_mason
           git pull origin my_structure_mason
 
+      - name: Configure git to merge when pulling
+        run: |
+          git config pull.rebase false
+
       - name: Merge master into my_structure_mason
         run: |
           git pull origin master --no-edit
 
-      - name: Sync core from lib/core
+      - name: Sync core from lib/core to mason brick
         run: |
           rm -rf bricks/core_brick/__brick__/core
           cp -r lib/core bricks/core_brick/__brick__/core
