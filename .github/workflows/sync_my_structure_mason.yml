@@ -10,10 +10,21 @@ jobs:
   sync_my_structure_mason:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout my_structure_mason branch
+        uses: actions/checkout@v3
         with:
-          ref: my_structure_mason
           token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Switch to my_structure_mason
+        run: |
+          git fetch origin my_structure_mason
+          git checkout my_structure_mason
+          git pull origin my_structure_mason
+
+      - name: Merge master into my_structure_mason
+        run: |
+          git pull origin master --no-edit
 
       - name: Sync core from lib/core
         run: |
