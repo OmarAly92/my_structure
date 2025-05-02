@@ -1,0 +1,49 @@
+name: Sync my_structure from mason
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  sync_my_structure_mason:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACTIONS_PUSH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Switch to my_structure_mason branch
+        run: |
+          git fetch origin my_structure_mason
+          git checkout my_structure_mason
+          git pull origin my_structure_mason
+
+      - name: Set up Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Configure git to merge when pulling
+        run: |
+          git config pull.rebase false
+
+      - name: Merge master into my_structure_mason
+        run: |
+          git pull origin master --no-edit
+
+      - name: Sync core from lib/core to mason brick
+        run: |
+          rm -rf bricks/core_brick/__brick__/core
+          cp -r lib/core bricks/core_brick/__brick__/core
+
+      - name: Commit and push if changes exist
+        env:
+          TOKEN: ${{ secrets.ACTIONS_PUSH_TOKEN }}
+        run: |
+          git add bricks/core_brick/__brick__/core
+          git diff-index --quiet HEAD || git commit -m "🔄 Sync core from lib/core (auto update from master)"
+          git push https://x-access-token:${TOKEN}@github.com/OmarAly92/my_structure.git HEAD:my_structure_mason
