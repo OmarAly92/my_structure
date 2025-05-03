@@ -94,3 +94,6 @@ void main() async {
 
 /// Opening Xcode project in IOS
 /// open ios/Runner.xcworkspace
+
+/// To add core brick use
+/// mason add core \\n  --git-url https://github.com/OmarAly92/my_structure.git \\n  --git-path bricks/core_brick \\n  --git-ref my_structure_mason \\n  --global
