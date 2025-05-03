@@ -26,6 +26,12 @@ environment:
 #  * a list of values (enums only)
 #  * an optional separator (list only)
 vars:
+  feature:
+    type: string
+    description: Your name
+    default: Login
+    prompt: What is your screen name?
+
   name:
     type: string
     description: Your name
