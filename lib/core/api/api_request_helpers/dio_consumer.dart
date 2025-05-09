@@ -4,6 +4,7 @@ import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:my_structure/core/api/api_request_helpers/end_points.dart';
 import 'package:my_structure/core/api/api_request_helpers/refresh_token_interceptor.dart';
+import 'package:my_structure/core/api/interceptors/app_interceptor_logger.dart';
 import 'package:my_structure/core/error_handling/dio_error_handler/dio_error_handler.dart';
 import 'package:my_structure/core/helpers/helper_functions/app_logger.dart';
 import 'package:my_structure/core/helpers/shared_preference/preference_helper.dart';
@@ -34,7 +35,7 @@ class DioConsumer implements ApiConsumer {
 
     if (kDebugMode) {
       client.interceptors.add(
-        TalkerDioLogger(
+        AppInterceptorLogger(
           settings: const TalkerDioLoggerSettings(
             printRequestHeaders: true,
             printRequestData: true,
